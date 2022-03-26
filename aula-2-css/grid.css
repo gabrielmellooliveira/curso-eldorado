@@ -1,0 +1,45 @@
+.grid-container {
+  display: grid;
+
+  grid-template-columns: 20% 50% 30%;
+
+  /* grid-template-columns: 40% 30% 30%;
+  grid-template-rows: 50% 50%;
+
+  justify-content: top;
+  align-items: center; */
+
+  grid-template-areas:
+  "logo nav nav"
+  "sidenav content advert"
+  "sidenav footer footer";
+}
+
+.nav {
+  height: 100%;
+  width: 100%;
+  background-color: blueviolet;
+
+  grid-area: nav;
+}
+
+.sidenav {
+  height: 100%;
+  width: 100%;
+  background-color: brown;
+
+  grid-area: sidenav;
+}
+
+.grid-item {
+  background-color: yellow;
+
+  width: 100%;
+  height: 200px;
+
+  grid-column-start: 2;
+  grid-column-end: 4;
+
+  grid-row-start: 1;
+  grid-row-end: 3;
+}

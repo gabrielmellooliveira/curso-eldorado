@@ -1,0 +1,59 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+:root {
+  --corprincipal: red;
+}
+
+.texto {
+  font-size: 12px;
+  color: orange;
+}
+
+a.texto {
+  color: blue;
+}
+
+div > h1 {
+  
+}
+
+h1:hover {
+  color: brown;
+}
+
+
+.botao {
+  background-color: var(--corprincipal);
+  padding: 5px;
+}
+
+.divisao {
+  --tamanho-simples: 2px;
+
+  border-width: var(--tamanho-simples);
+  border-style: solid;
+  border-color: var(--corprincipal);
+  border-radius: var(--tamanho-simples);
+
+  margin: 20px;
+  padding: 10px;
+}
+
+/* .botao:link {
+  background-color: blueviolet;
+}
+
+.botao:visited {
+  background-color: orange;
+}
+
+.botao:hover {
+  padding: 7px;
+}
+
+.botao:active {
+  background-color: red;
+} */

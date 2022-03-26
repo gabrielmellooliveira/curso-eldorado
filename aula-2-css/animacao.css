@@ -1,0 +1,23 @@
+@keyframes animacao-div {
+  0% {
+    background-color: green;
+  }
+  50% {
+    background-color: orange;
+    transform: translate(200px, 0) rotate(30deg) scaleX(2);
+  }
+  100% {
+    background-color: blue;
+    transform: translate(400px, 0) rotate(30deg) scaleX(4);
+  }
+}
+
+.div-animada {
+  height: 150px;
+  width: 150px;
+
+  background-color: black;
+  
+  animation-name: animacao-div;
+  animation-duration: 9s;
+}

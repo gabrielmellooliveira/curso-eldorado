@@ -1,0 +1,22 @@
+.item-lista {
+  padding: 5px 5px;
+  margin: 5px 0px;
+  background-color: aliceblue; 
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+.item-lista p {
+  margin: 0px;
+  padding: 0px;
+
+  padding: 5px 5px 0px 5px;
+}
+
+.item-lista small {
+  font-size: 8px;
+  padding: 0px 5px 5px 5px;
+  margin-bottom: 5px;
+  color: red;
+  display: none;
+}

@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <script src="motor.js"></script>
+    <script src="carro.js"></script>
+    <script src="funcoesGerais.js"></script>
+    <script src="funcoesCarro.js"></script>
+    <script>
+      let carro1 = new Carro('Cruze LT', 'Chevrolet', 2020, 'Cinza')
+      let carro2 = new Carro('Sandero', 'Renault', 2019, 'Preto')
+      let carro3 = new Carro('City', 'Honda', 2020, 'Preto')
+      let carro4 = new Carro('Kicks', 'Nissan', 2019, 'Cinza')
+
+      let motor = new Motor(200, 20, 'etanol')
+      let carro5 = new Carro('Civic', 'Honda', 2022, 'Cinza')
+
+      let carros = [
+        carro1,
+        carro2,
+        carro3,
+        carro4,
+        carro5
+      ]
+
+      // let itens = carros.map(function (carro) {
+      //   return carro.getModelo()
+      // })
+
+      // Tarefa:
+      // Criar duas classes
+      // Criar funções para adicionar, listar e filtrar em um array
+
+      // let carrosFiltrados = filtrarCarros(carros)
+
+      // let carrosFiltrados2 = filtrarCarros(carros, 2019)
+
+      
+
+      // const salvarCarro = (carro) => {
+      //   carros.push(carro)
+      // }
+
+      // listarCarros(carrosFiltrados)
+      
+      // listarCarros(carrosFiltrados2)
+    </script>
+  </body>
+</html>

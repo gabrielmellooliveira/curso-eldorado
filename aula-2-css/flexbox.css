@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+
+  height: 600px;
+
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  /* justify-content: flex-end;
+  align-items: flex-start; */
+
+  border: 1px solid black;
+}
+
+.item-1 {
+  height: 100px;
+  width: 200px;
+
+  align-self: center;
+
+  /* flex-grow: 1; */
+
+  background-color: blue;
+}
+
+.item-2 {
+  height: 100px;
+  width: 200px;
+
+  /* flex-grow: 7; */
+
+  background-color: red;
+}
+
+.item-3 {
+  height: 100px;
+  width: 200px;
+
+  align-self: flex-end;
+
+  /* flex-grow: 1.5; */
+
+  background-color: green;
+}

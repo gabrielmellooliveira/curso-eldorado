@@ -1,0 +1,18 @@
+.responsiva {
+  height: 150px;
+  width: 150px;
+
+  background-color: blue;
+}
+
+@media (min-width: 600px) and (max-width: 799px) {
+  .responsiva {
+    width: 100%;
+  }
+}
+
+@media (min-width: 800px) {
+  .responsiva {
+    width: 50%;
+  }
+}

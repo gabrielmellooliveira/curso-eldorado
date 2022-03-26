@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Carros</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  </head>
+  <body>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Modelo</th>
+          <th scope="col">Marca</th>
+          <th scope="col">Ano</th>
+          <th scope="col">Cor</th>
+        </tr>
+      </thead>
+      <tbody id="conteudo-tabela"></tbody>
+    </table>
+
+    <script src="carro.js"></script>
+    <script src="carroRepositorio.js"></script>
+    <script>
+      const conteudoTabela = document.getElementById('conteudo-tabela')
+
+      const repositorio = new CarroRepositorio()
+      const carros = repositorio.listarCarros()
+
+      for (const carro of carros) {
+        const linha = document.createElement('tr')
+
+        const colunaModelo = document.createElement('td')
+        colunaModelo.innerHTML = carro.getModelo()
+        linha.appendChild(colunaModelo)
+
+        const colunaMarca = document.createElement('td')
+        colunaMarca.innerHTML = carro.getMarca()
+        linha.appendChild(colunaMarca)
+
+        const colunaAno = document.createElement('td')
+        colunaAno.innerHTML = carro.getAno()
+        linha.appendChild(colunaAno)
+
+        const colunaCor = document.createElement('td')
+        colunaCor.innerHTML = carro.getCor()
+        linha.appendChild(colunaCor)
+
+        linha.onclick = function () {
+          const elementoModelo = this.getElementsByTagName('td')[0]
+
+          const novoElementoModelo = document.createElement('td')
+          novoElementoModelo.innerHTML = '#######'
+
+          this.replaceChild(novoElementoModelo, elementoModelo)
+
+          const elementoModelo2 = this.getElementsByTagName('td')[1]
+
+          const novoElementoModelo2 = document.createElement('td')
+          novoElementoModelo2.innerHTML = '#######'
+
+          this.replaceChild(novoElementoModelo2, elementoModelo2)
+
+          const elementoModelo3 = this.getElementsByTagName('td')[2]
+
+          const novoElementoModelo3 = document.createElement('td')
+          novoElementoModelo3.innerHTML = '#######'
+
+          this.replaceChild(novoElementoModelo3, elementoModelo3)
+
+          const elementoModelo4 = this.getElementsByTagName('td')[3]
+
+          const novoElementoModelo4 = document.createElement('td')
+          novoElementoModelo4.innerHTML = '#######'
+
+          this.replaceChild(novoElementoModelo4, elementoModelo4)
+        }
+
+        conteudoTabela.appendChild(linha)
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>DOM</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <!-- <ul id="lista"></ul> -->
+    <input type="text" id="campo-texto" />
+    <div class="item-lista">
+      <p style="margin-bottom: 5px;">Sem texto</p>
+      <small>Você atingiu o limite de caracteres</small>
+    </div>
+
+    <script src="carro.js"></script>
+    <script src="carroRepositorio.js"></script>
+    <script>
+      const campoTexto = document.getElementById('campo-texto')
+
+      const itemLista = document.getElementsByClassName('item-lista')[0]
+      const itemTexto = itemLista.getElementsByTagName('p')[0]
+      const itemTextoAlerta = itemLista.getElementsByTagName('small')[0]
+
+      const itemP = document.querySelectorAll('.item-lista p')
+      itemP.textContent = 'APENAS UM TESTE'
+
+      campoTexto.addEventListener('keyup', function () {
+        if (this.value.length >= 20) {
+          itemTextoAlerta.style.display = 'block'
+        } else {
+          itemTextoAlerta.style.display = 'none'
+          itemTexto.textContent = this.value
+        }
+      })
+
+      // campoTexto.onkeyup = function () {
+      //   if (this.value.length >= 20) {
+      //     itemTextoAlerta.style.display = 'block'
+      //   } else {
+      //     itemTextoAlerta.style.display = 'none'
+      //     itemTexto.textContent = this.value
+      //   }
+      // }
+
+      // const lista = document.getElementById('lista')
+
+      // const repositorio = new CarroRepositorio()
+      // const carros = repositorio.listarCarros()
+
+      // for (const carro of carros) {
+      //   const itemLista = document.createElement('li')
+      //   const itemTexto = document.createElement('p')
+
+      //   const descricaoCarro = `${carro.getModelo()} - ${carro.getAno()}`
+
+      //   itemTexto.textContent = descricaoCarro
+
+      //   itemLista.appendChild(itemTexto)
+
+      //   itemLista.classList.add('item-lista')
+
+      //   itemLista.onclick = function () {
+      //     lista.removeChild(this)
+      //   }
+
+      //   itemLista.onmouseenter = function () {
+      //     this.style.backgroundColor = 'red'
+      //   }
+
+      //   itemLista.onmouseleave = function () {
+      //     this.style.backgroundColor = 'aliceblue'
+      //   }
+
+      //   lista.appendChild(itemLista)
+      // }
+    </script>
+  </body>
+</html>
