@@ -6,6 +6,14 @@ function tratarErro(err) {
   }
 }
 
+// Verificação e criação de pasta (Se a pasta não existir vai cria-la)
+const fs = require('fs');
+const PASTA_DATABASE = './src/database';
+
+if (!fs.existsSync(PASTA_DATABASE)) {
+  fs.mkdirSync(PASTA_DATABASE)
+}
+
 // Criação do banco de dados
 let bancoDeDados = new sqlite.Database('src/database/database.db', tratarErro)
 
