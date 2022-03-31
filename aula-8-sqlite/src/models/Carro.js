@@ -1,9 +1,18 @@
 class Carro {
-  constructor (modelo, marca, ano, cor) {
+  constructor (modelo, marca, ano, cor, id = null) {
+    this._id = id
     this._modelo = modelo
     this._marca = marca
     this._ano = ano
     this._cor = (cor !== '' && cor !== null && cor !== undefined) ? cor : 'Indefinida'
+  }
+
+  getId() {
+    return this._id
+  }
+
+  setId(id) {
+    this._id = id
   }
 
   getModelo() {
