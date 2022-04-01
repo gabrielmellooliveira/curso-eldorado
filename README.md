@@ -8,3 +8,5 @@ Como conteúdo do repositório temos os seguintes itens:
 - Aula de Bootstrap
 - Aula de Javascript
 - Aula de Javascript DOM
+- Aula de Node.js
+- Aula de SQLite
