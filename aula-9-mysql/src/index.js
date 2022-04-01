@@ -1,49 +1,36 @@
-const mysql = require('mysql2')
+const Carro = require('./models/Carro')
+const CarroRepository = require('./repositories/CarroRepository')
 
-// Conectar em um banco de dados
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: '',
-  port: 3306
-})
+function main() {
+  let repositorio = new CarroRepository()
 
-// Criar uma tabela
-const criacaoTabelaSql = `
-CREATE TABLE IF NOT EXISTS carros (
-  carro_id INT AUTO_INCREMENT PRIMARY KEY,
-  carro_modelo VARCHAR(100),
-  carro_marca VARCHAR(100),
-  carro_ano INT,
-  carro_cor VARCHAR(100)
-)
-`
-connection.query(criacaoTabelaSql, (err, result, fields) => {
-  console.log('err', err)
-  console.log('result', result)
-  console.log('fields', fields)
-})
+  // Listar carros
+  repositorio.listarCarros(result => {
+    if (result) {
+      console.log('carros', result)
+    } else {
+      console.log('Nenhum carro foi encontrado')
+    }
+  })
 
-// Inserir dados na tabela
-const criacaoDadosSql = `
-  INSERT INTO carros (carro_modelo, carro_marca, carro_ano, carro_cor) 
-  VALUES (?, ?, ?, ?)
-`
-connection.query(criacaoDadosSql, [ 'Kicks', 'Nissan', 2021, 'Azul' ], (err, result, fields) => {
-  console.log('err', err)
-  console.log('result', result)
-  console.log('fields', fields)
-})
+  let carro = new Carro('Cruze LTZ', 'Chevrolet', 2020, 'Branco', 5)
 
-// Selecionar dados na tabela
-const selecaoDadosSql = `
-  SELECT * FROM carros WHERE carro_id = ?
-`
-connection.query(selecaoDadosSql, [ 1 ], (err, result, fields) => {
-  console.log('err', err)
-  console.log('result', result)
-  console.log('fields', fields)
-})
+  // Adicionar um carro
+  // repositorio.salvarCarro(carro, result => {
+  //   console.log('Inseriu com sucesso', result)
+  // })
 
-connection.end()
+  // Remove um carro
+  // repositorio.removerCarro(3, result => console.log('Deletou o item', result))
+  // repositorio.removerCarro(4)
+
+  // Editar um carro
+  // repositorio.editarCarro(carro)
+
+  // Filtrar carros por ano
+  // repositorio.filtrarCarrosPorAno(2020, carros => {
+  //   console.log(carros)
+  // })
+}
+
+main()
