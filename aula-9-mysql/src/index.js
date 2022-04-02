@@ -1,34 +1,29 @@
 const Carro = require('./models/Carro')
 const CarroRepository = require('./repositories/CarroRepository')
 
-function main() {
+async function main() {
+  //let carro = new Carro('Cruze LTZ', 'Chevrolet', 2020, 'Branco', 5)
+
   let repositorio = new CarroRepository()
 
   // Listar carros
-  repositorio.listarCarros(result => {
-    if (result) {
-      console.log('carros', result)
-    } else {
-      console.log('Nenhum carro foi encontrado')
-    }
-  })
-
-  let carro = new Carro('Cruze LTZ', 'Chevrolet', 2020, 'Branco', 5)
+  const carros = await repositorio.listarCarros()
 
   // Adicionar um carro
-  // repositorio.salvarCarro(carro, result => {
-  //   console.log('Inseriu com sucesso', result)
-  // })
+  await repositorio.salvarCarro(carro)
 
   // Remove um carro
-  // repositorio.removerCarro(3, result => console.log('Deletou o item', result))
-  // repositorio.removerCarro(4)
+  await repositorio.removerCarro(4)
 
   // Editar um carro
-  // repositorio.editarCarro(carro)
+  await repositorio.editarCarro(carro)
 
-  // Filtrar carros por ano
-  // repositorio.filtrarCarrosPorAno(2020, carros => {
+  // Filtrar carros
+  // repositorio.filtrarCarros({ ano: 2020, cor: 'Branco' }, carros => {
+  //   console.log(carros)
+  // })
+
+  // repositorio.filtrarCarros({ ano: 2020, marca: 'Chevrolet' }, carros => {
   //   console.log(carros)
   // })
 }

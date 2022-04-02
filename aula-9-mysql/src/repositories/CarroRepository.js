@@ -1,7 +1,7 @@
 const { tratarErro } = require('../utils/logUtils')
 
 const Carro = require('../models/Carro')
-const mysql = require('mysql2')
+const conexao = require('../config/mysql')
 
 class CarroRepository {
   _criarTabela() {
@@ -14,133 +14,167 @@ class CarroRepository {
         carro_cor VARCHAR(100)
       )
     `
-    connection.query(criacaoTabelaSql, err => { tratarErro(err) })
+    this._bancoDeDados.query(criacaoTabelaSql, err => { tratarErro(err) })
   }
 
-  constructor() {
-    this._bancoDeDados = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: 'password',
-      database: 'testeMySql2',
-      port: 3306
-    })
+  async salvarCarro(carro) {
+    let connection
 
-    this._criarTabela()
+    try {
+      if (carro instanceof Carro) {
+        const sql = 'INSERT INTO carros (carro_modelo, carro_marca, carro_ano, carro_cor) VALUES (:modelo, :marca, :ano, :cor)'
 
-    this._bancoDeDados.config.namedPlaceholders = true
+        const parametros = {
+          modelo: carro.getModelo(), 
+          marca: carro.getMarca(), 
+          ano: carro.getAno(), 
+          cor: carro.getCor()
+        }
+
+        connection = await conexao()
+        await connection.query(sql, parametros)
+      }
+    } catch(error) {
+      console.log('Erro ao salvar um carro', error.message)
+    } finally {
+      connection.end()
+    }
   }
 
-  salvarCarro(carro, callback = () => {}) {
-    if (carro instanceof Carro) {
-      const criacaoDadosSql = `
-        INSERT INTO carros (carro_modelo, carro_marca, carro_ano, carro_cor) 
-        VALUES (:modelo, :marca, :ano, :cor)
+  async listarCarros() {
+    let connection
+
+    try {
+      const sql = 'SELECT * FROM carros'
+
+      connection = await conexao()
+      const [result] = await connection.query(sql)
+
+      let carrosFormatados = []
+
+      if (result.length > 0) {
+        carrosFormatados = result.map(carro =>
+          new Carro(
+            carro.carro_modelo, 
+            carro.carro_marca, 
+            carro.carro_ano, 
+            carro.carro_cor,
+            carro.carro_id
+          )
+        )
+      }
+
+      return [...carrosFormatados]
+    } catch (error) {
+      console.log('Erro ao listar carros', error.message)
+    } finally {
+      connection.end()
+    }
+  }
+
+  async filtrarCarros(filtro) {
+    const { modelo, marca, ano, cor } = filtro
+
+    const filtros = []
+    const filtrosValores = []
+
+    if (modelo) {
+      filtros.push('carro_modelo = ?')
+      filtrosValores.push(modelo)
+    }
+
+    if (marca) {
+      filtros.push('carro_marca = ?')
+      filtrosValores.push(marca)
+    }
+
+    if (ano) {
+      filtros.push('carro_ano = ?')
+      filtrosValores.push(ano)
+    }
+
+    if (cor) {
+      filtros.push('carro_cor = ?')
+      filtrosValores.push(cor)
+    }
+
+    let connection
+
+    try {
+      let filtroSql = 'SELECT * FROM carros'
+
+      if (filtros.length > 0) {
+        filtroSql += ' WHERE ' + filtros.join(' AND ')
+      }
+
+      connection = await conexao()
+      const result = await connection.query(filtroSql, filtrosValores)
+
+      let carrosFormatados = []
+
+      if (result.length > 0) {
+        carrosFormatados = result.map(carro =>
+          new Carro(
+            carro.carro_modelo, 
+            carro.carro_marca, 
+            carro.carro_ano, 
+            carro.carro_cor,
+            carro.carro_id
+          )
+        )
+      }
+
+      return [...carrosFormatados]
+    } catch (error) {
+      console.log('Erro ao filtrar os carros', error.message)
+    } finally {
+      connection.end()
+    }
+  }
+
+  async editarCarro(carro) {
+    let connection
+
+    try {
+      const sql = `
+        UPDATE carros SET
+          carro_modelo = :modelo, 
+          carro_marca = :marca, 
+          carro_ano = :ano, 
+          carro_cor = :cor
+        WHERE carro_id = :id
       `
 
-      const carroParametros = {
+      const parametros = {
         modelo: carro.getModelo(), 
         marca: carro.getMarca(), 
         ano: carro.getAno(), 
-        cor: carro.getCor()
+        cor: carro.getCor(),
+        id: carro.getId()
       }
-
-      let callbackMySql = (err, result) => {
-        tratarErro(err)
-        callback(result)
-      }
-
-      this._bancoDeDados.query(criacaoDadosSql, carroParametros, callbackMySql)
+  
+      connection = await conexao()
+      await connection.query(sql, parametros)
+    } catch (error) {
+      console.log('Erro ao editar carro', error.message)
+    } finally {
+      connection.end()
     }
   }
 
-  listarCarros(callback = () => {}) {
-    const selecaoDadosSql = 'SELECT * FROM carros'
+  async removerCarro(idCarro) {
+    let connection
 
-    let callbackMySql = (err, result) => {
-      tratarErro(err)
+    try {
+      const sql = 'DELETE FROM carros WHERE carro_id = :idCarro'
 
-      let carrosFormatados = []
-
-      if (result.length > 0) {
-        carrosFormatados = result.map(carro =>
-          new Carro(
-            carro.carro_modelo, 
-            carro.carro_marca, 
-            carro.carro_ano, 
-            carro.carro_cor,
-            carro.carro_id
-          )
-        )
-      }
-      
-      callback([...carrosFormatados])
+      connection = await conexao()
+      await connection.query(sql, { idCarro })
+    } catch (error) {
+      console.log('Erro ao remover carro', error.message)
+    } finally {
+      connection.end()
     }
-
-    this._bancoDeDados.query(selecaoDadosSql, callbackMySql)
-  }
-
-  filtrarCarros(filtro, callback = () => {}) {
-    const selecaoDadosSql = 'SELECT * FROM carros'
-
-    let callbackMySql = (err, result) => {
-      tratarErro(err)
-
-      let carrosFormatados = []
-
-      if (result.length > 0) {
-        carrosFormatados = result.map(carro =>
-          new Carro(
-            carro.carro_modelo, 
-            carro.carro_marca, 
-            carro.carro_ano, 
-            carro.carro_cor,
-            carro.carro_id
-          )
-        )
-      }
-      
-      callback([...carrosFormatados])
-    }
-
-    this._bancoDeDados.query(selecaoDadosSql, callbackMySql)
-  }
-
-  editarCarro(carro, callback = () => {}) {
-    const atualizacaoDadosSql = `
-      UPDATE carros SET
-        carro_modelo = :modelo, 
-        carro_marca = :marca, 
-        carro_ano = :ano, 
-        carro_cor = :cor
-      WHERE carro_id = :id
-    `
-
-    const carroParametros = {
-      modelo: carro.getModelo(), 
-      marca: carro.getMarca(), 
-      ano: carro.getAno(), 
-      cor: carro.getCor(),
-      id: carro.getId()
-    }
-
-    let callbackMySql = (err, result) => {
-      tratarErro(err)
-      callback(result)
-    }
-
-    this._bancoDeDados.query(atualizacaoDadosSql, carroParametros, callbackMySql)
-  }
-
-  removerCarro(idCarro, callback = () => {}) {
-    const remocaoDadosSql = 'DELETE FROM carros WHERE carro_id = :idCarro'
-
-    let callbackMySql = (err, result) => {
-      tratarErro(err)
-      callback(result)
-    }
-
-    this._bancoDeDados.query(remocaoDadosSql, { idCarro }, callbackMySql)
   }
 }
 
