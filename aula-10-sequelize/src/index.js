@@ -1,27 +1,32 @@
-const Carro = require('./carro')
-const Usuario = require('./usuario')
+const MarcaRepository = require('./repositories/MarcaRepository')
 
-const database = require('./database')
+const Carro = require('./database/models/Carro')
+const Marca = require('./database/models/Marca')
 
 async function main() {
-  //await database.sync()
+  const marcaRepository = new MarcaRepository()
+
+  const marcas = await Marca.findAll({ include: [ { model: Carro } ] })
+
+  console.log(marcas[0].dataValues)
+
+  // await marcaRepository.salvar({ nome: 'Chevrolet' })
 
   // Inserir um novo carro
-  const carro = await Carro.create({
-    modelo: 'Tracker',
-    carro_marca: 'Chevrolet',
-    carro_ano: 2019,
-    carro_cor: 'Branco'
-  })
+  // const carro = await Carro.create({
+  //   modelo: 'Tracker',
+  //   marca_id: 1,
+  //   ano: 2019,
+  //   cor: 'Branco'
+  // })
 
-  console.log(carro)
+  // console.log(carro)
 
   // Selecionar os carros
-  // const carros = await Carro.findAll({
-  //   where: {
-  //     carro_ano: 2021
-  //   }
-  // })
+  // const carros = await Carro.findAll({ include: [ { model: Marca } ] })
+
+  // console.log(carros[0].dataValues)
+
   // const result = await Carro.findByPk(2)
 
   // Editar um carro
