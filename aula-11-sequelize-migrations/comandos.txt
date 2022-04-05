@@ -1,0 +1,9 @@
+Comando para criação do banco baseado nas configs: npx sequelize-cli db:create
+
+Comando para geração de migration: npx sequelize-cli migration:generate --name create-table-company
+Comando para execução das migrations: npx sequelize-cli db:migrate
+Comando para reverter a última migration: npx sequelize-cli db:migrate:undo
+
+Comando para geração de seed: npx sequelize-cli seed:generate --name add-company-default
+Comando para execução das seeders: npx sequelize-cli db:seed:all
+Comando para reverter a última seed: npx sequelize-cli db:seed:undo

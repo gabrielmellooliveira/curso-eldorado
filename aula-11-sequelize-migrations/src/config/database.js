@@ -1,7 +1,7 @@
 module.exports = {
   database: 'autoservice',
-  username: 'root',
-  password: 'password',
+  username: '',
+  password: '',
   dialect: 'mysql',
   host: 'localhost',
   port: 3306
