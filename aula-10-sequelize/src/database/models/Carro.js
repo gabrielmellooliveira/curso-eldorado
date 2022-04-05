@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize')
-const database = require('../database')
+const database = require('..')
 const Marca = require('./Marca')
 
 const Carro = database.define('carro', {

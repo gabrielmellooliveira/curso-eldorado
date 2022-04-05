@@ -30,7 +30,11 @@ class CarRepository {
 
   async update(car) {
     try {
-      return await car.save()
+      return await CarModel.update(car, { 
+        where: {
+          id: car.id
+        }
+      })
     } catch (error) {
       console.log('Erro ao editar um carro -', error.message)
     }
