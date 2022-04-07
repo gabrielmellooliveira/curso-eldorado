@@ -1,1 +1,2 @@
 Comando para instalar o express: npm install express
+Comando para instalar o nodemon: npm install nodemon
