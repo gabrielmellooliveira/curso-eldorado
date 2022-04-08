@@ -1,3 +1,5 @@
+const ResponseBuilder = require('../utils/ResponseBuilder')
+
 let carros = [
   { id: 1, modelo: 'Versa', ano: 2020 },
   { id: 2, modelo: 'Honda Civic', ano: 2021 },
@@ -26,9 +28,13 @@ class CarrosController {
         })
       }
   
-      return response.status(200).json({ carros: carrosFiltrados })
+      const responseContent = ResponseBuilder.createResponseContent(carrosFiltrados)
+
+      return response.status(200).json(responseContent)
     } catch (error) {
-      return response.status(400).json({ mensagem: error.message })
+      const responseErrors = ResponseBuilder.createResponseErrors([ error.message ])
+
+      return response.status(400).json(responseErrors)
     }
   }
   
