@@ -28,7 +28,20 @@ class CarrosController {
         })
       }
   
-      const responseContent = ResponseBuilder.createResponseContent(carrosFiltrados)
+      const carrosLinks = carrosFiltrados.map(carro => {
+        return {
+          ...carro,
+          links: [
+            {
+              rel: 'self',
+              uri: `http://localhost:3333/carros/${carro.id}`,
+              type: 'GET'
+            }
+          ]
+        }
+      })
+
+      const responseContent = ResponseBuilder.createResponseContent(carrosLinks)
 
       return response.status(200).json(responseContent)
     } catch (error) {
@@ -43,10 +56,37 @@ class CarrosController {
       const id = request.params.id
   
       const carrosFiltrados = carros.filter(carro => carro.id === parseInt(id))
-  
-      return response.status(200).json({ carros: carrosFiltrados })
+
+      const carrosLinks = carrosFiltrados.map(carro => {
+        return {
+          ...carro,
+          links: [
+            {
+              rel: 'self',
+              uri: `http://localhost:3333/carros/${carro.id}`,
+              type: 'GET'
+            },
+            {
+              rel: 'update',
+              uri: `http://localhost:3333/carros/${carro.id}`,
+              type: 'PUT'
+            },
+            {
+              rel: 'delete',
+              uri: `http://localhost:3333/carros/${carro.id}`,
+              type: 'DELETE'
+            }
+          ]
+        }
+      })
+
+      const responseContent = ResponseBuilder.createResponseContent(carrosLinks)
+
+      return response.status(200).json(responseContent)
     } catch (error) {
-      return response.status(400).json({ mensagem: error.message })
+      const responseErrors = ResponseBuilder.createResponseErrors([ error.message ])
+
+      return response.status(400).json(responseErrors)
     }
   }
   
