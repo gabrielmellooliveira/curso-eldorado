@@ -2,3 +2,7 @@ Comando para instalar o jest: npm install jest --save-dev
 Comando para iniciar um projeto jest: npx jest --init
 
 Alteração no arquivo jest.config.js: testMatch: [ "**/tests/**/*.js" ]
+
+Alteração no arquivo jest.config.js: collectCoverage: true
+Alteração no arquivo jest.config.js: collectCoverageFrom: [ '<rootDir>/src/**/*.js' ]
+Alteração no arquivo jest.config.js: coverageReporters: [ 'text-summary', 'lcov' ]
