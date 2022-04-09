@@ -1,0 +1,4 @@
+Comando para instalar o jest: npm install jest --save-dev
+Comando para iniciar um projeto jest: npx jest --init
+
+Alteração no arquivo jest.config.js: testMatch: [ "**/tests/**/*.js" ]
