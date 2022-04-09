@@ -10,7 +10,11 @@ function createResponseContent(content) {
 }
 
 function createResponseErrors(errors) {
-  // return new Response(null, errors)
+  if (errors instanceof Array) {
+    return new Response(null, errors)
+  } else {
+    throw new Error('A propriedade errors deve ser uma instáncia de Array')
+  }
 }
 
 module.exports = { createResponseContent, createResponseErrors }
