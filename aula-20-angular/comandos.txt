@@ -1,8 +1,9 @@
 npm install -g @angular/cli
 npx ng new nome-projeto
 npx ng generate component components/lista
+npx ng generate service services/githubService
 
-npm install primeng
+npm install primeng 
 npm install primeicons
 
 Adicionar 3 referencias no style global no arquivo angular.json (projects > NOME_DO_PROJETO > architect > build > options > styles):

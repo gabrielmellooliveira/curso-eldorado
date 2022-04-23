@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import Repository from 'src/app/models/Repository';
+import { GithubService } from 'src/app/services/github.service';
 
 @Component({
   selector: 'app-lista',
@@ -6,16 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lista.component.sass']
 })
 export class ListaComponent implements OnInit {
-  carro1:string = 'Cruze';
-  carro2:string = 'Civic';
-  carro3:string = 'Sentra';
-  carro4:string = 'Corolla';
+  repositories: Repository[] = [];
 
   mostrarLista:boolean = false;
 
-  constructor() { }
+  constructor(private githubService: GithubService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.githubService.buscarRepositorios().subscribe(repos => {
+      this.repositories = repos
+    })
+  }
 
   clicar(): void {
     this.mostrarLista = !this.mostrarLista;

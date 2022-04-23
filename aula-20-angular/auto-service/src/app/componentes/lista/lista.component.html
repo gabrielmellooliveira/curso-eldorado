@@ -1,10 +1,9 @@
 <button (click)="clicar()">Mostrar/esconder carros</button>
 
 <div *ngIf="mostrarLista">
-  <ol>
-    <li>{{ carro1 }}</li>
-    <li>{{ carro2 }}</li>
-    <li>{{ carro3 }}</li>
-    <li>{{ carro4 }}</li>
+  <ol *ngFor="let repository of repositories">
+    <li>
+      {{ repository.name }} - {{ repository.description }} - {{ repository.language }}
+    </li>
   </ol>
 </div>

@@ -1,0 +1,19 @@
+<div>
+  <h5>Create Company</h5>
+  <input pInputText [(ngModel)]="companyName" name="companyName" placeholder="Enter your company name" type="text" />
+  <button pButton (click)="onCreateCompany()">Create Company</button>
+</div>
+<div>
+  <h5>Edit Company</h5>
+  <input pInputText [(ngModel)]="editCompanyId" name="editCompanyId" placeholder="Enter your company id" type="number" />
+  <input pInputText [(ngModel)]="editCompanyName" name="editCompanyName" placeholder="Enter your company name" type="text" />
+  <button pButton (click)="onEditCompany()">Edit Company</button>
+</div>
+<div>
+  <h5>List Companies</h5>
+  <ol *ngFor="let company of companies">
+    <li (click)="onDeleteCompany(company.id)">
+      {{ company.id }} - {{ company.name }}
+    </li>
+  </ol>
+</div>
