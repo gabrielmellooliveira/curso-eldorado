@@ -14,7 +14,7 @@ import { FormularioComponent } from './componentes/formulario/formulario.compone
 import PrimeNgModules from './primeng/primeng.module';
 import { LoginComponent } from './componentes/login/login.component';
 import { SemRespostaComponent } from './componentes/sem-resposta/sem-resposta.component';
-import { CompaniesComponent } from './componentes/companies/companies.component'
+import { CompaniesComponent } from './componentes/companies/companies.component';
 
 @NgModule({
   declarations: [

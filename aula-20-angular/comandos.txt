@@ -2,6 +2,7 @@ npm install -g @angular/cli
 npx ng new nome-projeto
 npx ng generate component components/lista
 npx ng generate service services/githubService
+npx ng generate module lazy --routing
 
 npm install primeng 
 npm install primeicons
