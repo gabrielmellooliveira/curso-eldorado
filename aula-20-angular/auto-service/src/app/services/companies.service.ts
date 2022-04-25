@@ -2,6 +2,7 @@ import { HttpClient, HttpResponse, HttpResponseBase } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable } from 'rxjs';
+import { AuthGuardService } from '../guards/auth-guard.service';
 import Company from '../models/Company';
 import IResponse from '../models/IResponse';
 import Response from '../models/Response';
@@ -12,7 +13,7 @@ import Response from '../models/Response';
 export class CompaniesService {
   baseUrl: string = 'http://localhost:3333';
 
-  constructor(private httpClient: HttpClient, private router: Router) { }
+  constructor(private httpClient: HttpClient, private router: Router, private authGuard: AuthGuardService) { }
 
   private getOptions() {
     const token = localStorage.getItem('token')
@@ -36,7 +37,9 @@ export class CompaniesService {
         map((response) => response.body || new Response<Company[]>()),
         catchError((err) => {
           if (err.status === 401) {
-            this.router.navigate(['/form'])
+            this.authGuard.setAuth(false)
+
+            // this.router.navigate(['/form'])
           }
 
           throw new Error('Não autorizado')
