@@ -1,6 +1,11 @@
 <div>
-  <input pInputText [(ngModel)]="login" name="login" placeholder="Digite seu login" type="text" />
-  <input pInputText [(ngModel)]="senha" name="senha" placeholder="Digite seu senha" type="password" />
+  <input pInputText [formControl]='login' name="login" placeholder="Digite seu login" type="text" />
+  <input pInputText [formControl]='senha' name="senha" placeholder="Digite seu senha" type="password" />
 
   <button pButton (click)="logar()">Logar</button>
+  <button pButton (click)="mostrarTexto()">Mostrar Texto</button>
+
+  <div *ngIf="mostrar">
+    <app-texto [texto]="login.value"></app-texto>
+  </div>
 </div>
