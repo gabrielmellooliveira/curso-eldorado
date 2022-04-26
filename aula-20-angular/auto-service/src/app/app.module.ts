@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,7 @@ import PrimeNgModules from './primeng/primeng.module';
 import { LoginComponent } from './componentes/login/login.component';
 import { SemRespostaComponent } from './componentes/sem-resposta/sem-resposta.component';
 import { CompaniesComponent } from './componentes/companies/companies.component';
+import { TextoComponent } from './componentes/texto/texto.component';
 
 @NgModule({
   declarations: [
@@ -23,13 +24,15 @@ import { CompaniesComponent } from './componentes/companies/companies.component'
     FormularioComponent,
     LoginComponent,
     SemRespostaComponent,
-    CompaniesComponent
+    CompaniesComponent,
+    TextoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ].concat(PrimeNgModules),
   providers: [],
   bootstrap: [AppComponent]
